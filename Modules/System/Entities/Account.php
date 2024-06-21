@@ -21,6 +21,9 @@ class Account extends Authenticatable
         'account_level',
         'account_status',
     ];
+    protected $hidden = [
+        'password',
+    ];
 
     protected $table = 'accounts';
 
@@ -29,6 +32,7 @@ class Account extends Authenticatable
         $returns = [];
         $id = optional($request)->get('id', '');
         $fields = $this->fillable;
+        $request['first_name'] = $request['name'];
         $submittedData = collect($request)->only($fields)->toArray();
         $execute = $this::create($submittedData)->id;
 
@@ -41,20 +45,21 @@ class Account extends Authenticatable
 
     public function execute_update($request): array
     {
-        // $id = $request['id'] ?? $request->input('id');
+    
         $id = isset($request['id']) ? $request['id'] : null;
         $identifier = isset($request['identifier']) ? $request['identifier'] : null;
         $fields = $this->fillable;
 
         $data = $this->where('id', $id)->first();
-
+        if(!empty($request['name'])){
+            $request['first_name'] = $request['name'];
+        }
         $request = collect($request);
         if ($data) {
             $submittedData = $request->only($fields);
             $beforeUpdate = $data->toArray();
             $submittedUpdate = $submittedData->toArray();
             $execute = $data->update($submittedUpdate);
-            $auditing = null; // no update auditing defined
         } else {
             return [
                 'message' => 'data does not exist',

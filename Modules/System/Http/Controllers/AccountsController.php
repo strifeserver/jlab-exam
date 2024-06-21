@@ -57,7 +57,7 @@ class AccountsController extends Controller
      */
     public function show($id)
     {
-        return view('system::show');
+     
     }
 
     /**
@@ -76,9 +76,11 @@ class AccountsController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(request $request)
     {
-        //
+        $data = $request->all();
+        $execution = $this->AccountService->update($data);
+        return response($execution, $execution['code'])->header('Content-Type', 'application/json');
     }
 
     /**

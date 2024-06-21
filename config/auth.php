@@ -16,19 +16,19 @@ return [
         'api' => [
             'driver' => 'sanctum',
             'provider' => 'accounts',
-            'hash' => false,
+            'hash' => true,
         ],
 
         'accounts' => [
             'driver' => 'sanctum',
             'provider' => 'accounts',
-            'hash' => false,
+            'hash' => true,
         ],
 
         'customers' => [
             'driver' => 'sanctum',
             'provider' => 'customers',
-            'hash' => false,
+            'hash' => true,
         ],
     ],
 

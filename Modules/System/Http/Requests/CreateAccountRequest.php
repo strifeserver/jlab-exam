@@ -17,8 +17,8 @@ class CreateAccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => ['required'],
-            'last_name' => ['required'],
+            'name' => ['required'],
+            // 'last_name' => ['required'],
             'email' => ['required', 'email', 'unique:accounts,email'],
             'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[A-Z]).{8,}$/'],
             'account_level' => ['required'],

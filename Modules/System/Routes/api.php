@@ -21,8 +21,6 @@ Route::middleware('auth:api')->get('/system', function (Request $request) {
 
 Route::prefix('auth')->group(function () {
     Route::post('login', 'AuthenticationController@login');
-    // Route::post('admin/login', 'AuthenticationController@login');
-    // Route::post('customer/login', 'AuthenticationController@login');
 
     Route::middleware('checkApiToken')->group(function () {
         Route::get('admin/profile', 'AuthenticationController@adminProfile');
@@ -31,6 +29,9 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::post('register', 'AccountsController@store');
+Route::put('update_profile', 'AccountsController@update');
+Route::get('protected-route', 'AuthenticationController@validateToken');
+
 
 
 
